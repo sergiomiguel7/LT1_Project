@@ -3,6 +3,7 @@ import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 
 public class Communication {
@@ -14,8 +15,8 @@ public class Communication {
     private static Communication instance = new Communication();
 
     public Communication() {
-
-        serialPort = SerialPort.getCommPort("COM3");
+        System.out.println(Arrays.toString(SerialPort.getCommPorts()));
+        serialPort = SerialPort.getCommPort("COM4");
         serialPort.openPort();
         checkConnection();
         setEventHandler();
@@ -36,10 +37,10 @@ public class Communication {
     }
 
     /**
-     * @param type - a accent char is a 2 byte value (0 is the first byte, 1 the second)
+     * @param type  - a accent char is a 2 byte value (0 is the first byte, 1 the second)
      * @param toFix - the correspondent byte to fix
-     *
-     * this method fix a accent byte
+     *              <p>
+     *              this method fix a accent byte
      */
     private void fixByte(int type, byte toFix) {
         switch (type) {
@@ -79,21 +80,24 @@ public class Communication {
                 for (byte b : newData) {
                     if ((char) b != '\n') {
                         if ((int) b < 0 && !founded) {
-                         fixByte(0, b);
-                         continue;
+                            fixByte(0, b);
+                            continue;
                         }
                         if (founded) {
-                            fixByte(1,b);
+                            fixByte(1, b);
                             continue;
                         }
                         char letter = (char) b;
                         message.append(letter);
 
-                    } else {
+                    }
+                    else{
                         System.out.println(message.toString());
                         message = new StringBuilder();
                     }
                 }
+
+
             }
         });
     }
