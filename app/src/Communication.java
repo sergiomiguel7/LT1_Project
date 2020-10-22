@@ -16,7 +16,7 @@ public class Communication {
 
     public Communication() {
         System.out.println(Arrays.toString(SerialPort.getCommPorts()));
-        serialPort = SerialPort.getCommPort("COM4");
+        serialPort = SerialPort.getCommPort("COM5");
         serialPort.openPort();
         checkConnection();
         setEventHandler();
@@ -100,5 +100,14 @@ public class Communication {
 
             }
         });
+    }
+
+    private void stringToByte(String message){
+        byte[] bArray = new byte[message.length()];
+        for(int i = 0; i<message.length();i++){
+            bArray[i] = (byte) message.charAt(i);
+        }
+        bArray[message.length()] = (byte) '\n';
+        serialPort.writeBytes(bArray,bArray.length);
     }
 }
