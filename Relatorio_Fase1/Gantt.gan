@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Diagrama de Gantt (Fases)" company="Uminho" webLink="http://" view-date="2020-12-30" view-index="1" gantt-divider-location="629" resource-divider-location="505" version="2.8.11" locale="pt_PT">
+<?xml version="1.0" encoding="UTF-8"?><project name="Diagrama de Gantt (Fases)" company="Uminho" webLink="http://" view-date="2020-11-30" view-index="1" gantt-divider-location="738" resource-divider-location="505" version="2.8.11" locale="pt_PT">
     <description/>
-    <view zooming-state="default:2" id="gantt-chart">
-        <field id="tpd3" name="Nome" width="283" order="0"/>
-        <field id="tpd4" name="Data de início" width="171" order="1"/>
-        <field id="tpd5" name="Data de fim" width="171" order="2"/>
+    <view zooming-state="default:5" id="gantt-chart">
+        <field id="tpd3" name="Nome" width="319" order="0"/>
+        <field id="tpd4" name="Data de início" width="208" order="1"/>
+        <field id="tpd5" name="Data de fim" width="207" order="2"/>
         <option id="color.recent"><![CDATA[#33ff33 #3399ff #ff3333]]></option>
     </view>
     <view id="resource-table">
@@ -34,56 +34,84 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="16" name="Fase 1 – Especificação do projeto e comunicação via porta série PC-Arduino-Arduino-PC" color="#000000" meeting="false" start="2020-10-09" duration="16" complete="0" thirdDate="2020-10-09" thirdDate-constraint="1" expand="false">
+        <task id="16" name="Fase 1 – Especificação do projeto e comunicação via porta série PC-Arduino-Arduino-PC" color="#000000" meeting="false" start="2020-10-09" duration="59" complete="0" thirdDate="2020-10-09" thirdDate-constraint="1" expand="false">
             <task id="30" name="Planeamento de projeto" color="#8cb6ce" meeting="false" start="2020-10-09" duration="1" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true"/>
             <task id="14" name="Diagrama de Gantt" color="#8cb6ce" meeting="false" start="2020-10-09" duration="4" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
-            <task id="36" name="Definição da Arquitetura do sistema" color="#8cb6ce" meeting="false" start="2020-10-09" duration="4" complete="0" thirdDate="2020-10-09" thirdDate-constraint="1" expand="true"/>
-            <task id="37" name="Identificação das tecnologias e recursos necessários" color="#8cb6ce" meeting="false" start="2020-10-09" duration="4" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true"/>
-            <task id="44" name="Conhecer as características das interfaces de comunicação série entre os módulos Arduino e entre cada modulo Arduino e o respetivo PC" color="#8cb6ce" meeting="false" start="2020-10-16" duration="4" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true"/>
-            <task id="164" name="Identificar requisitos funcionais e não funcionais" color="#8cb6ce" meeting="false" start="2020-10-09" duration="2" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
+            <task id="36" name="Definição da Arquitetura do sistema" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-10-09" thirdDate-constraint="1" expand="false">
+                <task id="251" name="Arquitetura Fase 1" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-12-30" thirdDate-constraint="0" expand="true"/>
+                <task id="253" name="Arquitetura Fase 4" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-12-30" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="37" name="Tecnologias e recursos necessários" color="#8cb6ce" meeting="false" start="2020-10-09" duration="4" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true"/>
+            <task id="44" name="Características das interfaces de comunicação série" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true">
+                <task id="259" name="Entre os módulos Arduino" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-12-30" thirdDate-constraint="0" expand="true"/>
+                <task id="262" name="Entre cada modulo Arduino e o respetivo PC" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-12-30" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="164" name="Identificar requisitos funcionais e não funcionais" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
             <task id="43" name="Definição das funcionalidades a serem oferecidas pelo sistema" color="#8cb6ce" meeting="false" start="2020-10-16" duration="4" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true"/>
             <task id="42" name="Efetuar as ligações físicas necessárias entre os componentes utilizados" color="#8cb6ce" meeting="false" start="2020-10-16" duration="2" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true"/>
-            <task id="41" name="Implementar um programa no PC para transferência de um ficheiro de texto e de um ficheiro de imagem entre dois computadores ligados por cabo via porta série" color="#8cb6ce" meeting="false" start="2020-10-22" duration="5" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true"/>
-            <task id="40" name="Conhecer e configurar os parâmetros de configuração da interface de comunicação série UART/RS-232 e os seus modos de funcionamento" color="#8cb6ce" meeting="false" start="2020-10-19" duration="4" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true"/>
-            <task id="50" name="Implementar um programa no módulo Arduino para encaminhamento dos dados recebidos do PC para o outro módulo Arduino e vice-versa, utilizando uma ligação por cabo" color="#8cb6ce" meeting="false" start="2020-10-22" duration="5" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true"/>
+            <task id="41" name="Implementar um programa no PC" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true">
+                <task id="267" name="Transferência de um ficheiro de texto" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-12-30" thirdDate-constraint="0" expand="true"/>
+                <task id="269" name="Ficheiro de imagem entre dois computadores ligados por cabo via porta série" meeting="false" start="2020-12-30" duration="1" complete="0" expand="true"/>
+            </task>
+            <task id="40" name="Conhecer e configurar os parâmetros de configuração da interface de comunicação série UART/RS-232" color="#8cb6ce" meeting="false" start="2020-10-19" duration="4" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true"/>
+            <task id="50" name="Implementar um programa no módulo Arduino para encaminhamento dos dados recebidos do PC para o outro módulo Arduino e vice-versa, utilizando uma ligação por cabo" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true">
+                <task id="272" name="Pogramado usando IDE Arduino" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-12-30" thirdDate-constraint="0" expand="true"/>
+            </task>
             <task id="39" name="Preparação da Demonstração" color="#8cb6ce" meeting="false" start="2020-10-29" duration="1" complete="0" thirdDate="2020-10-07" thirdDate-constraint="0" expand="true"/>
             <task id="56" name="Demonstração do projeto" color="#8cb6ce" meeting="false" start="2020-10-29" duration="2" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
             <task id="55" name="Revisão do relatório" color="#8cb6ce" meeting="false" start="2020-10-29" duration="1" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
-            <task id="54" name="Entrega do relatório" color="#8cb6ce" meeting="false" start="2020-10-30" duration="1" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
+            <task id="54" name="Entrega do relatório" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="113" name="Fase 2 - Comunicação por radiofrequência Arduino-TRF-TRF-Arduino" color="#8cb6ce" meeting="false" start="2020-11-02" duration="20" complete="0" thirdDate="2020-11-02" thirdDate-constraint="1" expand="false">
-            <task id="119" name="Conhecer as características da interface de comunicação série entre cada transceiver de RF (TRF) e o respetivo módulo Arduino" color="#8cb6ce" meeting="false" start="2020-11-02" duration="5" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
-            <task id="121" name="Conhecer e compreender o impacto no desempenho do sistema dos diferentes parâmetros configuráveis dos transceivers de RF" color="#8cb6ce" meeting="false" start="2020-11-03" duration="5" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
+        <task id="113" name="Fase 2 - Comunicação por radiofrequência Arduino-TRF-TRF-Arduino" color="#8cb6ce" meeting="false" start="2020-11-03" duration="42" complete="0" thirdDate="2020-11-02" thirdDate-constraint="1" expand="false">
+            <task id="119" name="Conhecer as características da interface de comunicação série" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="false">
+                <task id="275" name="Entre cada transceiver de RF (TRF)" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-12-30" thirdDate-constraint="0" expand="true"/>
+                <task id="277" name="Entre o respetivo módulo Arduino" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-12-30" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="121" name="Compreender o impacto no desempenho do sistema dos diferentes parâmetros configuráveis dos transceivers de RF" color="#8cb6ce" meeting="false" start="2020-11-03" duration="5" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
             <task id="122" name="Desenvolvimento de código, nos módulos Arduino, para configuração e transmissão/receção de dados dos respetivos transceivers de RF" color="#8cb6ce" meeting="false" start="2020-11-06" duration="6" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
-            <task id="123" name="Conceção e execução de testes experimentais para avaliação de desempenho do sistema" color="#8cb6ce" meeting="false" start="2020-11-09" duration="3" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
-            <task id="124" name="Efetuar as ligações físicas necessárias entre os componentes utilizados" color="#8cb6ce" meeting="false" start="2020-11-10" duration="4" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
+            <task id="123" name="Execução de testes experimentais para avaliação de desempenho do sistema" color="#8cb6ce" meeting="false" start="2020-11-09" duration="3" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
+            <task id="124" name="Efetuar as ligações físicas necessárias" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="false">
+                <task id="284" name="Entre PC e Arduino, através UART" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-12-30" thirdDate-constraint="0" expand="true"/>
+                <task id="286" name="Entre Arduino e transceiver, ligações físicas" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-12-30" thirdDate-constraint="0" expand="true"/>
+            </task>
             <task id="132" name="Preparação da Demonstração" color="#8cb6ce" meeting="false" start="2020-11-25" duration="2" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
             <task id="134" name="Demonstração do projeto" color="#8cb6ce" meeting="false" start="2020-11-26" duration="2" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
             <task id="135" name="Revisão do relatório" color="#8cb6ce" meeting="false" start="2020-11-26" duration="1" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
             <task id="136" name="Entrega do relatório" color="#8cb6ce" meeting="false" start="2020-11-27" duration="1" complete="0" thirdDate="2020-10-09" thirdDate-constraint="0" expand="true"/>
+            <task id="305" name="Controlo de acesso ao meio" color="#000000" meeting="false" start="2020-11-30" duration="1" complete="0" thirdDate="2020-11-30" thirdDate-constraint="0" expand="false">
+                <task id="306" name="Entender a sua utilidade" color="#8cb6ce" meeting="false" start="2020-11-30" duration="1" complete="0" thirdDate="2020-11-30" thirdDate-constraint="0" expand="true"/>
+                <task id="309" name="Vantagens e desvantagens dos diferentes tipos de protocolos de controlo de acesso ao meio para redes sem fios" color="#8cb6ce" meeting="false" start="2020-11-30" duration="1" complete="0" thirdDate="2020-11-30" thirdDate-constraint="0" expand="true"/>
+                <task id="311" name="Alterar o código, ascrescentando os protocolos necessários para o controlo de acesso ao meio" meeting="false" start="2020-11-30" duration="1" complete="0" expand="true"/>
+                <task id="312" name="Efetuar testes e comparar os resultados obtidos com e sem o protocolo MAC" color="#8cb6ce" meeting="false" start="2020-11-30" duration="1" complete="0" thirdDate="2020-11-30" thirdDate-constraint="0" expand="true"/>
+            </task>
         </task>
-        <task id="167" name="Fase 3 - Controlo da ligação lógica" color="#ff3333" meeting="false" start="2020-12-02" duration="28" complete="0" thirdDate="2020-11-30" thirdDate-constraint="1" expand="false">
-            <task id="180" name="Perceber a noção de trama/pacote, cabeçalho, payload e cauda" color="#8cb6ce" meeting="false" start="2020-12-02" duration="1" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true"/>
-            <task id="184" name="Perceber como representar corretamente a estrutura de um pacote" color="#8cb6ce" meeting="false" start="2020-12-04" duration="2" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true"/>
+        <task id="167" name="Fase 3 - Controlo da ligação lógica" color="#ff3333" meeting="false" start="2020-12-04" duration="26" complete="0" thirdDate="2020-11-30" thirdDate-constraint="1" expand="false">
+            <task id="180" name="Perceber noções de:" color="#8cb6ce" meeting="false" start="2020-12-23" duration="6" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="false">
+                <task id="292" name="Trama/pacote" color="#8cb6ce" meeting="false" start="2020-12-30" duration="1" complete="0" thirdDate="2020-12-30" thirdDate-constraint="0" expand="true"/>
+                <task id="294" name="Cabeçalho" meeting="false" start="2020-12-23" duration="2" complete="0" expand="true"/>
+                <task id="295" name="Payload" meeting="false" start="2020-12-30" duration="1" complete="0" expand="true"/>
+                <task id="296" name="Cauda" meeting="false" start="2020-12-30" duration="1" complete="0" expand="true"/>
+            </task>
+            <task id="184" name="Representar corretamente a estrutura de um pacote" color="#8cb6ce" meeting="false" start="2020-12-04" duration="2" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true"/>
             <task id="185" name="Definir o protocolo de comunicação" color="#8cb6ce" meeting="false" start="2020-12-08" duration="3" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true"/>
             <task id="186" name="Definir os tipos de trama e os campos que estas necessitam de conter para proporcionar as funcionalidades desejadas" color="#8cb6ce" meeting="false" start="2020-12-14" duration="3" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true"/>
-            <task id="188" name="Disponibilizar as primitivas às camadas superiores através de APIs" color="#8cb6ce" meeting="false" start="2020-12-18" duration="2" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true"/>
-            <task id="187" name="Efetuar a transferência fiável de um fluxo de dados entre dois módulos Arduino sobre a ligação RF sem fios" color="#8cb6ce" meeting="false" start="2020-12-23" duration="2" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true"/>
+            <task id="188" name="Disponibilizar as primitivas às camadas superiores através de APIs" color="#8cb6ce" meeting="false" start="2020-12-23" duration="2" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true"/>
+            <task id="303" name="Criar uma transferência fiável de um fluxo de dados entre dois módulos Arduino sobre a ligação RF sem fios" color="#8cb6ce" meeting="false" start="2020-12-23" duration="2" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true"/>
             <task id="195" name="Preparação da Demonstração" color="#8cb6ce" meeting="false" start="2020-12-28" duration="2" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true"/>
             <task id="197" name="Demonstração do projeto" color="#8cb6ce" meeting="false" start="2020-12-30" duration="2" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true"/>
             <task id="199" name="Revisão do relatório" color="#8cb6ce" meeting="false" start="2021-01-04" duration="2" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true"/>
             <task id="200" name="Entrega do relatório" color="#8cb6ce" meeting="false" start="2021-01-08" duration="1" complete="0" thirdDate="2020-12-02" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="231" name="Fase 4" color="#33ff33" meeting="false" start="2021-01-11" duration="15" complete="0" thirdDate="2020-12-07" thirdDate-constraint="0" expand="false">
-            <task id="236" name="Fase 4.1 - Camada de aplicação e respetiva aplicação" color="#8cb6ce" meeting="false" start="2021-01-11" duration="3" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true">
+            <task id="236" name="Fase 4.1 - Camada de aplicação e respetiva aplicação" color="#8cb6ce" meeting="false" start="2021-01-11" duration="3" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="false">
                 <task id="238" name="Implementar o protocolo de nível 7 (camada de aplicação)." color="#8cb6ce" meeting="false" start="2021-01-11" duration="3" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true"/>
-                <task id="239" name="Criar um programa de conversação e transferência de ficheiros que utilize o protocolo desenvolvido." color="#8cb6ce" meeting="false" start="2021-01-12" duration="2" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true"/>
+                <task id="239" name="Criar um programa de conversação e transferência de ficheiros que utilize o protocolo desenvolvido" color="#8cb6ce" meeting="false" start="2021-01-12" duration="2" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true"/>
             </task>
-            <task id="240" name="Fase 4.2 - Integração e testes finais" color="#8cb6ce" meeting="false" start="2021-01-14" duration="7" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true">
-                <task id="241" name="Integrar as funcionalidades desenvolvidas em todas as camadas ao longo do projeto." color="#8cb6ce" meeting="false" start="2021-01-14" duration="2" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true"/>
+            <task id="240" name="Fase 4.2 - Integração e testes finais" color="#8cb6ce" meeting="false" start="2021-01-14" duration="7" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="false">
+                <task id="241" name="Integrar as funcionalidades desenvolvidas em todas as camadas ao longo do projeto" color="#8cb6ce" meeting="false" start="2021-01-14" duration="2" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true"/>
                 <task id="242" name="Executar os testes experimentais finais, analisando e discutindo os resultados obtidos" color="#8cb6ce" meeting="false" start="2021-01-18" duration="2" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true"/>
-                <task id="243" name="Otimizar o desempenho do sistema, reduzindo o tempo de transferência dos ficheiros ao mínimo possível." color="#8cb6ce" meeting="false" start="2021-01-20" duration="2" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true"/>
-                <task id="244" name="Apresentar as conclusões finais referentes ao desenvolvimento do projeto como um todo." color="#8cb6ce" meeting="false" start="2021-01-21" duration="2" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true"/>
+                <task id="243" name="Otimizar o desempenho do sistema" color="#8cb6ce" meeting="false" start="2021-01-20" duration="2" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true"/>
+                <task id="244" name="Apresentar as conclusões finais referentes ao desenvolvimento do projeto como um todo" color="#8cb6ce" meeting="false" start="2021-01-21" duration="2" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true"/>
             </task>
             <task id="245" name="Preparação da demonstração" color="#8cb6ce" meeting="false" start="2021-01-25" duration="1" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true"/>
             <task id="247" name="Demonstração do projeto" color="#8cb6ce" meeting="false" start="2021-01-26" duration="2" complete="0" thirdDate="2020-12-28" thirdDate-constraint="0" expand="true"/>
@@ -129,6 +157,9 @@
         <allocation task-id="245" resource-id="2" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="247" resource-id="2" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="248" resource-id="2" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="251" resource-id="2" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="253" resource-id="2" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="305" resource-id="2" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="30" resource-id="3" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="37" resource-id="3" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="44" resource-id="3" function="Default:1" responsible="false" load="100.0"/>
@@ -152,7 +183,6 @@
         <allocation task-id="180" resource-id="3" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="186" resource-id="3" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="188" resource-id="3" function="Default:1" responsible="false" load="100.0"/>
-        <allocation task-id="187" resource-id="3" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="195" resource-id="3" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="199" resource-id="3" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="200" resource-id="3" function="Default:1" responsible="true" load="100.0"/>
@@ -162,6 +192,10 @@
         <allocation task-id="247" resource-id="3" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="248" resource-id="3" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="250" resource-id="3" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="251" resource-id="3" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="253" resource-id="3" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="303" resource-id="3" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="305" resource-id="3" function="Default:1" responsible="true" load="100.0"/>
         <allocation task-id="30" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="44" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="43" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
@@ -179,7 +213,6 @@
         <allocation task-id="134" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="135" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="185" resource-id="4" function="Default:1" responsible="true" load="100.0"/>
-        <allocation task-id="187" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="195" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="197" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="239" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
@@ -188,6 +221,8 @@
         <allocation task-id="245" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="247" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="248" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="303" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="305" resource-id="4" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="14" resource-id="5" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="44" resource-id="5" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="43" resource-id="5" function="Default:1" responsible="true" load="100.0"/>
@@ -216,6 +251,7 @@
         <allocation task-id="245" resource-id="5" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="247" resource-id="5" function="Default:1" responsible="false" load="100.0"/>
         <allocation task-id="248" resource-id="5" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="305" resource-id="5" function="Default:1" responsible="false" load="100.0"/>
     </allocations>
     <vacations/>
     <previous/>
