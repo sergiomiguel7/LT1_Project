@@ -4,6 +4,7 @@ import com.fazecast.jSerialComm.SerialPortEvent;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Scanner;
 
 
 public class Communication {
@@ -16,7 +17,7 @@ public class Communication {
 
     public Communication() {
         System.out.println(Arrays.toString(SerialPort.getCommPorts()));
-        serialPort = SerialPort.getCommPort("COM5");
+        serialPort = SerialPort.getCommPort("COM6");
         serialPort.openPort();
         checkConnection();
         setEventHandler();
@@ -92,7 +93,7 @@ public class Communication {
 
                     }
                     else{
-                        System.out.println(message.toString());
+                        System.out.println("Outro:"+message.toString());
                         message = new StringBuilder();
                     }
                 }
@@ -102,12 +103,19 @@ public class Communication {
         });
     }
 
-    private void stringToByte(String message){
-        byte[] bArray = new byte[message.length()];
+    public void stringToByte(String message){
+        byte[] bArray = new byte[message.length() + 2];
         for(int i = 0; i<message.length();i++){
             bArray[i] = (byte) message.charAt(i);
         }
-        bArray[message.length()] = (byte) '\n';
+        bArray[message.length()] = '\n';
+        bArray[message.length()+1] = '\b';
         serialPort.writeBytes(bArray,bArray.length);
+    }
+
+    public String msgMenu(){
+        Scanner ler = new Scanner(System.in);
+        String msg = ler.nextLine();
+        return msg;
     }
 }
