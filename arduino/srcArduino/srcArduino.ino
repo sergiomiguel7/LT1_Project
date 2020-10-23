@@ -31,20 +31,12 @@
   }
   
   void receiveMessage(){
-    portCommunication.readBytesUntil('\n',messageReceived,100);
-
-    for(int i=0; i<maxMessageSize; i++){
-      if((char)messageSend[i] != '\n'){
-        Serial.print(messageReceived[i]);
-      }
-      else{
-        break;
-        }
-    }
+    String rxd = portCommunication.readString();
+    Serial.print(rxd);
   }
   
   void sendMessage(){
-      Serial.readBytesUntil('\n', messageSend, 100);
+      Serial.readBytesUntil('\b', messageSend, 100);
       int sz = 0;
       
       for(int i=0; i<maxMessageSize; i++){
