@@ -3,7 +3,6 @@ import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -17,19 +16,31 @@ public class Communication {
     private static Communication instance = new Communication();
 
     public Communication() {
-        System.out.println(Arrays.toString(SerialPort.getCommPorts()));
-        serialPort = SerialPort.getCommPort("COM6");
+        serialPort = chooseSerialPort();
         serialPort.openPort();
         checkConnection();
         setEventHandler();
-
     }
-
 
     public static Communication getInstance() {
         return instance;
     }
 
+
+
+    private SerialPort chooseSerialPort(){
+        System.out.println(Arrays.toString(SerialPort.getCommPorts()));
+        int i = 0;
+        System.out.println("Escolhe a porta que está conectada ao teu Arduino");
+        for(SerialPort port : SerialPort.getCommPorts()){
+            System.out.println(i + "- " + port.getSystemPortName());
+            i++;
+        }
+        Scanner option = new Scanner(System.in);
+        int serial = Integer.parseInt(option.nextLine());
+        return SerialPort.getCommPorts()[serial];
+
+    }
 
     private void checkConnection() {
         if (serialPort.isOpen())
@@ -174,8 +185,8 @@ public class Communication {
     }
 
 
-    public String msgMenu() {
-        Scanner ler = new Scanner(System.in);
-        return ler.nextLine();
+    public String readUserMessage() {
+        Scanner input = new Scanner(System.in);
+        return input.nextLine();
     }
 }
