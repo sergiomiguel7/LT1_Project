@@ -3,6 +3,7 @@ import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -43,7 +44,7 @@ public class Communication {
      *              <p>
      *              this method fix a accent byte
      */
-    private void fixByte(int type, byte toFix) {
+    private void fixReceivedByte(int type, byte toFix) {
         switch (type) {
             case 0: {
                 founded = true;
@@ -58,6 +59,26 @@ public class Communication {
                 message.append(fixed);
             }
         }
+    }
+
+    /**
+     * @param toFix - the correspondent byte to fix
+     *              <p>
+     *              this method transform a accent byte in a two byte array to the
+     *              other user can receive the correct char
+     * @return the two byte array that correspond to the accent byte
+     */
+    private byte[] fixByteToSend(byte toFix) {
+
+        byte[] arrayByte = new byte[1];
+        byte[] fixed;
+
+        arrayByte[0] = toFix;
+        String converted = new String(arrayByte, StandardCharsets.ISO_8859_1);
+        fixed = converted.getBytes();
+
+        return fixed;
+
     }
 
 
@@ -81,19 +102,18 @@ public class Communication {
                 for (byte b : newData) {
                     if ((char) b != '\n') {
                         if ((int) b < 0 && !founded) {
-                            fixByte(0, b);
+                            fixReceivedByte(0, b);
                             continue;
                         }
                         if (founded) {
-                            fixByte(1, b);
+                            fixReceivedByte(1, b);
                             continue;
                         }
                         char letter = (char) b;
                         message.append(letter);
 
-                    }
-                    else{
-                        System.out.println("Outro:"+message.toString());
+                    } else {
+                        System.out.println("Outro:" + message.toString());
                         message = new StringBuilder();
                     }
                 }
@@ -103,19 +123,59 @@ public class Communication {
         });
     }
 
-    public void stringToByte(String message){
-        byte[] bArray = new byte[message.length() + 2];
-        for(int i = 0; i<message.length();i++){
-            bArray[i] = (byte) message.charAt(i);
+    /**
+     *
+     * @param message - the input message from user
+     *
+     *  in this method the inputed string from user is converter to a byte array to send via serial port
+     *  to the arduino
+     */
+    public void stringToByte(String message) {
+
+        int messageSize = checkStringSize(message);
+        byte[] bArray = new byte[messageSize + 2];  //plus 2 to handle the end chars
+
+        for (int i = 0; i < message.length(); i++) {
+            //check if is a character with accent
+            if ((byte) message.charAt(i) > 0)
+                bArray[i] = (byte) message.charAt(i);
+            else {
+                byte[] fixed = fixByteToSend((byte) message.charAt(i));
+                bArray[i] = fixed[0];
+                bArray[i + 1] = fixed[1];
+                i++;
+            }
         }
-        bArray[message.length()] = '\n';
-        bArray[message.length()+1] = '\b';
-        serialPort.writeBytes(bArray,bArray.length);
+
+        bArray[messageSize] = '\n';
+        bArray[messageSize + 1] = '\b';
+        serialPort.writeBytes(bArray, bArray.length);
     }
 
-    public String msgMenu(){
+
+    /**
+     * @param userMessage - message that user want to send
+     * @return size that the program will need in bytes, to handle the accent bytes
+     */
+    public int checkStringSize(String userMessage) {
+        int size = 0;
+
+        for (int i = 0; i < userMessage.length(); i++) {
+            if ((byte) userMessage.charAt(i) > 0)
+                size++;
+            else {
+                size = size + 2;
+            }
+        }
+
+        return size;
+
+
+    }
+
+
+    public String msgMenu() {
         Scanner ler = new Scanner(System.in);
-        String msg = ler.nextLine();
-        return msg;
+        return ler.nextLine();
     }
 }
