@@ -145,16 +145,19 @@ public class Communication {
         int messageSize = checkStringSize(message);
         byte[] bArray = new byte[messageSize + 2];  //plus 2 to handle the end chars
 
-        for (int i = 0; i < message.length(); i++) {
+        int counter = 0;
+
+        for (int i = 0; i < messageSize; i++) {
             //check if is a character with accent
-            if ((byte) message.charAt(i) > 0)
-                bArray[i] = (byte) message.charAt(i);
+            if ( (byte) message.charAt(counter) > 0 )
+                bArray[i] = (byte) message.charAt(counter);
             else {
-                byte[] fixed = fixByteToSend((byte) message.charAt(i));
+                byte[] fixed = fixByteToSend((byte) message.charAt(counter));
                 bArray[i] = fixed[0];
                 bArray[i + 1] = fixed[1];
                 i++;
             }
+            counter++;
         }
 
         bArray[messageSize] = '\n';
