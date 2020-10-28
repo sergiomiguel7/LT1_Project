@@ -135,7 +135,6 @@ public class Communication {
     }
 
     /**
-     *
      * @param message - the input message from user
      *
      *  in this method the inputed string from user is converter to a byte array to send via serial port
@@ -180,7 +179,6 @@ public class Communication {
         }
 
         return size;
-
 
     }
 
