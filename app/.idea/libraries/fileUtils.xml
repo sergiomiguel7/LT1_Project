@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="fileUtils">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../jars/commons-io-2.8.0-src/src/main/java" />
+    </SOURCES>
+  </library>
+</component>
