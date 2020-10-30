@@ -31,8 +31,17 @@
   }
   
   void receiveMessage(){
-    String rxd = portCommunication.readString();
-    Serial.print(rxd);
+    byte a;
+    portCommunication.readBytes(&a,1);
+    if(a == 0){
+      String rxd = portCommunication.readString();   
+      Serial.print((char)a + rxd);   
+      }
+    else{
+      byte file[2747];  
+      portCommunication.readBytes(file,2747);
+      Serial.write(a+file,2748);
+      }
   }
   
   void sendMessage(){
@@ -42,7 +51,7 @@
       for(int i=0; i<maxMessageSize; i++){
         
          if((char)messageSend[i]== '\n'){
-            sz++;
+            if(messageSend[0] == 0) sz++;
             break;
           }
           sz++;
