@@ -18,6 +18,7 @@ public class Communication {
     private byte[] accent = new byte[2]; // array to fix accent on strings
     private boolean founded = false; // flag if a accent is founded
     private boolean flagFounded = false;
+    private int fileType = 2;
     private int fileBytesSize = 2747; //hard coded file size
     private int counterBytes = 0; //actual readed bytes
     private byte[] receivedFile = new byte[fileBytesSize]; //received file
@@ -127,12 +128,15 @@ public class Communication {
                 if (!flagFounded) {
                     for (byte b : newData) {
                         if (b == 0 || b == 1) {
+                            fileType=b;
                             flagFounded = true;
+                            break;
                         }
                     }
                 }
+
                 if (flagFounded) {
-                    if (newData[0] == 0) {
+                    if (fileType == 0) {
                         // if first byte is 0 is string, 1 is file
                         for (byte b : newData) {
                             if ((char) b != '\n') {
@@ -153,7 +157,7 @@ public class Communication {
                                 message = new StringBuilder();
                             }
                         }
-                    } else {
+                    } else if(fileType==1){
                         for (int j = 0; j < newData.length; j++) {
 
                             if (j != 0) {
