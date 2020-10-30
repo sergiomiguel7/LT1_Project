@@ -17,6 +17,7 @@ public class Communication {
     private StringBuilder message = new StringBuilder();  //received message
     private byte[] accent = new byte[2]; // array to fix accent on strings
     private boolean founded = false; // flag if a accent is founded
+    private boolean flagFounded = false;
     private int fileBytesSize = 2747; //hard coded file size
     private int counterBytes = 0; //actual readed bytes
     private byte[] receivedFile = new byte[fileBytesSize]; //received file
@@ -25,7 +26,7 @@ public class Communication {
     public Communication() {
 
         serialPort = chooseSerialPort();
-        while (serialPort == null){
+        while (serialPort == null) {
             System.out.println("Choose a existing port");
             serialPort = chooseSerialPort();
         }
@@ -49,7 +50,7 @@ public class Communication {
         }
         Scanner option = new Scanner(System.in);
         int serial = Integer.parseInt(option.nextLine());
-        if(serial > -1 && serial < i)
+        if (serial > -1 && serial < i)
             return SerialPort.getCommPorts()[serial];
         else
             return null;
@@ -123,45 +124,54 @@ public class Communication {
                 byte[] newData = new byte[serialPort.bytesAvailable()];
                 serialPort.readBytes(newData, newData.length);
 
-                if (newData[0] == 0) {
-                    // if first byte is 0 is string, 1 is file
+                if (!flagFounded) {
                     for (byte b : newData) {
-                        if ((char) b != '\n') {
-                            if ((int) b < 0 && !founded) {
-                                fixReceivedByte(0, b);
-                                continue;
-                            }
-                            if (founded) {
-                                fixReceivedByte(1, b);
-                                continue;
-                            }
-                            char letter = (char) b;
-                            message.append(letter);
-
-                        } else {
-                            System.out.println("Outro:" + message.toString());
-                            message = new StringBuilder();
+                        if (b == 0 || b == 1) {
+                            flagFounded = true;
                         }
-                    }
-                } else {
-                    for (int j = 0; j < newData.length; j++) {
-
-                        if (j != 0) {
-                            byte b = newData[j];
-
-                            if (counterBytes != fileBytesSize) {
-                                receivedFile[counterBytes] = b;
-                                counterBytes++;
-                            }
-                            else{
-                                saveFile();
-                            }
-                        }
-
                     }
                 }
+                if (flagFounded) {
+                    if (newData[0] == 0) {
+                        // if first byte is 0 is string, 1 is file
+                        for (byte b : newData) {
+                            if ((char) b != '\n') {
+                                if ((int) b < 0 && !founded) {
+                                    fixReceivedByte(0, b);
+                                    continue;
+                                }
+                                if (founded) {
+                                    fixReceivedByte(1, b);
+                                    continue;
+                                }
+                                char letter = (char) b;
+                                message.append(letter);
 
+                            } else {
+                                System.out.println("Outro:" + message.toString());
+                                flagFounded = false;
+                                message = new StringBuilder();
+                            }
+                        }
+                    } else {
+                        for (int j = 0; j < newData.length; j++) {
 
+                            if (j != 0) {
+                                byte b = newData[j];
+
+                                if (counterBytes != fileBytesSize) {
+                                    receivedFile[counterBytes] = b;
+                                    counterBytes++;
+                                } else {
+                                    flagFounded=false;
+                                    saveFile();
+                                }
+                            }
+
+                        }
+                    }
+
+                }
             }
         });
     }
@@ -244,7 +254,6 @@ public class Communication {
     }
 
     /**
-     *
      * @return array of bytes from file
      */
     private byte[] readFile() {

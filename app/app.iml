@@ -17,5 +17,14 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="fileUtils" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../jars/commons-io-2.8.0/commons-io-2.8.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
