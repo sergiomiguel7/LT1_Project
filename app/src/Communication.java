@@ -5,8 +5,10 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -16,12 +18,8 @@ public class Communication {
     private SerialPort serialPort;
     private StringBuilder message = new StringBuilder();  //received message
     private byte[] accent = new byte[2]; // array to fix accent on strings
-    private boolean founded = false; // flag if a accent is founded
-    private boolean flagFounded = false;
-    private int fileType = 2;
-    private int fileBytesSize = 2747; //hard coded file size
-    private int counterBytes = 0; //actual readed bytes
-    private byte[] receivedFile = new byte[fileBytesSize]; //received file
+    private boolean accentFound = false; // flag if a accent is founded
+    private FileReceived fileReceived;
     private static Communication instance = new Communication();
 
     public Communication() {
@@ -31,9 +29,12 @@ public class Communication {
             System.out.println("Choose a existing port");
             serialPort = chooseSerialPort();
         }
+
+        serialPort.setBaudRate(19200);
         serialPort.openPort();
         checkConnection();
         setEventHandler();
+        fileReceived = new FileReceived();
     }
 
     public static Communication getInstance() {
@@ -73,12 +74,12 @@ public class Communication {
     private void fixReceivedByte(int type, byte toFix) {
         switch (type) {
             case 0: {
-                founded = true;
+                accentFound = true;
                 accent[0] = toFix;
                 break;
             }
             case 1: {
-                founded = false;
+                accentFound = false;
                 accent[1] = toFix;
                 String fixed = new String(accent, StandardCharsets.UTF_8);
                 accent = new byte[2];
@@ -107,6 +108,36 @@ public class Communication {
 
     }
 
+    /**
+     * @param b - byte to append on received message
+     */
+    private void buildMessageString(byte b) {
+
+        boolean filled = fileReceived.putByteData(b);
+
+        if (!filled) {
+            printMessage();
+        }
+
+    }
+
+    private void printMessage() {
+
+        for (byte letter : fileReceived.getData()) {
+
+            if ((int) letter < 0 && !accentFound) {
+                fixReceivedByte(0, letter);
+            } else if (accentFound) {
+                fixReceivedByte(1, letter);
+            } else
+                message.append((char) letter);
+        }
+
+        System.out.println("Outro: " + message);
+        message = new StringBuilder();
+        fileReceived = new FileReceived();
+    }
+
 
     /**
      * this method is listening the port and if it have data available then the port read the bytes
@@ -125,60 +156,55 @@ public class Communication {
                 byte[] newData = new byte[serialPort.bytesAvailable()];
                 serialPort.readBytes(newData, newData.length);
 
-                if (!flagFounded) {
-                    for (byte b : newData) {
-                        if (b == 0 || b == 1) {
-                            fileType=b;
-                            flagFounded = true;
-                            break;
+                //fill the type and the size
+                if (fileReceived.getType() == -1 || fileReceived.getSize() == -1) {
+                    for (byte byteReceived : newData) {
+                        //if type isn't found
+                        if (fileReceived.getType() == -1) {
+                            if (byteReceived == 1 || byteReceived == 2) {
+                                fileReceived.setType(byteReceived);
+                            }
                         }
-                    }
-                }
-
-                if (flagFounded) {
-                    if (fileType == 0) {
-                        // if first byte is 0 is string, 1 is file
-                        for (byte b : newData) {
-                            if ((char) b != '\n') {
-                                if ((int) b < 0 && !founded) {
-                                    fixReceivedByte(0, b);
-                                    continue;
-                                }
-                                if (founded) {
-                                    fixReceivedByte(1, b);
-                                    continue;
-                                }
-                                char letter = (char) b;
-                                message.append(letter);
-
+                        // if type is founded but size don't filled yet
+                        else if (fileReceived.getType() != -1) {
+                            if (fileReceived.getSize() == -1) {
+                                fileReceived.setByteSize(byteReceived);
                             } else {
-                                System.out.println("Outro:" + message.toString());
-                                flagFounded = false;
-                                message = new StringBuilder();
+                                fillDataPacket(byteReceived);
                             }
-                        }
-                    } else if(fileType==1){
-                        for (int j = 0; j < newData.length; j++) {
-
-                            if (j != 0) {
-                                byte b = newData[j];
-
-                                if (counterBytes != fileBytesSize) {
-                                    receivedFile[counterBytes] = b;
-                                    counterBytes++;
-                                } else {
-                                    flagFounded=false;
-                                    saveFile();
-                                }
-                            }
-
                         }
                     }
-
+                    //fill the data packet
+                } else {
+                    for (byte b : newData) {
+                        fillDataPacket(b);
+                    }
                 }
             }
         });
     }
+
+    private void fillDataPacket(byte dataByte) {
+        if (fileReceived.getType() == 1)
+            buildMessageString(dataByte);
+        else if (fileReceived.getType() == 2)
+            buildFile(dataByte);
+    }
+
+
+    int counter = 0;
+
+    private void buildFile(byte b) {
+
+        boolean filled = fileReceived.putByteData(b);
+        System.out.println("Finished: " + !filled + " Received -> " + counter + " of " + fileReceived.getSize());
+        counter++;
+        if (!filled) {
+            saveFile();
+        }
+
+    }
+
 
     /**
      * @param message - the input message from user
@@ -189,13 +215,23 @@ public class Communication {
     public void stringToByte(String message) {
 
         int messageSize = checkStringSize(message);
-        byte[] bArray = new byte[messageSize + 3];  //plus 2 to handle the end chars
+        messageSize = messageSize + 6;   //one byte to type, 3 to size, 2 to stop bits
+        byte[] bArray = new byte[messageSize];
+        byte[] sizeBytes = ByteBuffer.allocate(4).putInt(checkStringSize(message)).array();
+
+        int i = 1;
+        bArray[0] = 1; //type
+
+        //fill the size space on packet
+        for (int j = 0; i < sizeBytes.length; j++) {
+            if (j != 0) {
+                bArray[i] = sizeBytes[j];
+                i++;
+            }
+        }
 
         int counter = 0;
-
-        bArray[0] = 0;
-
-        for (int i = 1; i < messageSize; i++) {
+        for (i = 4; i < messageSize - 2; i++) {
             //check if is a character with accent
             if ((byte) message.charAt(counter) > 0)
                 bArray[i] = (byte) message.charAt(counter);
@@ -208,8 +244,8 @@ public class Communication {
             counter++;
         }
 
-        bArray[messageSize] = '\n';
-        bArray[messageSize + 1] = '\b';
+        bArray[messageSize - 2] = '|';
+        bArray[messageSize - 1] = '\b';
         serialPort.writeBytes(bArray, bArray.length);
     }
 
@@ -236,23 +272,35 @@ public class Communication {
     /**
      * method to build the packet of file
      */
-
     public void sendFile() {
         byte[] fileBytes = readFile();
 
         if (fileBytes != null) {
-            byte[] fileToSend = new byte[fileBytes.length + 3];
-            int i = 0;
-            fileToSend[i] = 1;
-            i++;
+            byte[] fileToSend = new byte[fileBytes.length + 6]; //one byte to type, 3 to size, 2 to stop bits
+            byte[] sizeBytes = ByteBuffer.allocate(4).putInt(fileBytes.length).array();
+
+            int i = 1;
+            fileToSend[0] = 2; // set type to 2
+
+            //fill the size space on packet
+            for (int j = 0; i < sizeBytes.length; j++) {
+                if (j != 0) {
+                    fileToSend[i] = sizeBytes[j];
+                    i++;
+                }
+            }
+
+            i = 4;
             for (byte b : fileBytes) {
                 fileToSend[i] = b;
                 i++;
             }
 
-            fileToSend[fileToSend.length - 2] = '\n';
+            //stop bits
+            fileToSend[fileToSend.length - 2] = '|';
             fileToSend[fileToSend.length - 1] = '\b';
 
+            System.out.println("Início da transmissão " +  Instant.now());
             serialPort.writeBytes(fileToSend, fileToSend.length);
         }
     }
@@ -262,7 +310,7 @@ public class Communication {
      */
     private byte[] readFile() {
         //TODO: read path from terminal
-        File toRead = new File("Dados.ppI");
+        File toRead = new File("envio.txt");
         try {
             return Files.readAllBytes(toRead.toPath());
         } catch (IOException e) {
@@ -273,13 +321,13 @@ public class Communication {
 
     private void saveFile() {
         try {
-            FileUtils.writeByteArrayToFile(new File("DadosRecebidos.ppI"), receivedFile);
+            System.out.println("Fim da transmissão " + Instant.now());
+            FileUtils.writeByteArrayToFile(new File("DadosRecebidos.txt"), fileReceived.getData());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("File readed with sucess!");
-        receivedFile = new byte[fileBytesSize];
-        counterBytes = 0;
+        System.out.println("File saved with sucess!");
+        fileReceived = new FileReceived();
     }
 
     public String readUserMessage() {
