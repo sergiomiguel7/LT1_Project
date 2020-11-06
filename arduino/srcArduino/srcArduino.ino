@@ -1,3 +1,7 @@
+#include <nRF24L01.h>
+#include <RF24.h>
+#include <RF24_config.h>
+
 
   HardwareSerial portCommunication(2);
 
